@@ -1,0 +1,197 @@
+<style>
+    .owl-item{z-index: -99;}
+    .carousel-caption {
+        position: absolute;
+        right: 0%;
+        bottom: 12%;
+        left: 4%;
+        z-index: 10;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        color: #fff;
+        text-align: left; 
+    }
+    .carousel-control-next, .carousel-control-prev{
+        width: auto;
+        height: auto;
+        margin: auto;
+        padding-left: 1%;
+    }
+    .carousel-control-next {
+        right: 1%;
+    }
+</style>
+
+<section class="banner-area " >
+    
+    <div class="container custom-container" style="min-width: 100%;padding: 0;">
+        <div id="video-carousel-example3"   class="carousel slide carousel-fade" data-ride="carousel" style="width: 100%;height: 100%;">
+            
+            <div class="carousel-inner" role="listbox" >
+            <div  *ngFor="let banner of bannerlist  let i =index;" class="carousel-item" [ngClass]="{'active': i == 0}">
+                <div class="row banner-bg" [style.background]="'url(' + banner.image_url + ')'" [style.height.px]="550">
+                    <div class="banner-parallex" ></div>
+                        <div class="col-xl-6 col-lg-8">
+                            
+                            <div class="banner-content" style="padding:20px;padding-left: 7%;" >
+                                <!--<h6 class="sub-title wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1.8s" style="visibility: visible; animation-duration: 1.8s; animation-delay: 0.2s; animation-name: fadeInUp;">{{bannerlist[i].title}}</h6>-->
+                                <h2 class="title wow fadeInUp" data-wow-delay=".4s" data-wow-duration="1.8s" style="visibility: visible; animation-duration: 1.8s; animation-delay: 0.4s; animation-name: fadeInUp;">{{bannerlist[i].title}} <span></span></h2>
+                                <!--<div class="banner-meta wow fadeInUp" data-wow-delay=".6s" data-wow-duration="1.8s" style="visibility: visible; animation-duration: 1.8s; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                    <ul>
+                                        <li class="quality" id="imdb_rating_{{i}}">
+                                        </li>
+                                        <li class="quality" >
+                                            <span *ngIf="bannerlist[i].certification != 'Off'">{{bannerlist[i].certification_info}}</span>
+                                        </li>
+                                        <li class="category">
+                                            <a *ngIf="bannerlist[i].genre != ''">{{bannerlist[i].genre}}</a>
+                                        </li>
+                                        <li class="release-time">
+                                            <span *ngIf="bannerlist[i].year != ''"><i class="far fa-calendar-alt"></i> {{bannerlist[i].year}}</span>
+                                            <span *ngIf="bannerlist[i].duration != 'Off'"><i class="far fa-clock"></i> {{bannerlist[i].duration_info}}</span>
+                                        </li>
+                                    </ul>
+                                </div>-->
+                                
+                                <p *ngIf="bannerlist[i].description != ''">{{bannerlist[i].description}}</p>
+                                <a (click)="movieDetails(bannerlist[i].id,bannerlist[i].title)"  style="cursor: pointer;" class="banner-btn btn popup-video wow fadeInUp" data-wow-delay=".8s" data-wow-duration="1.8s" style="visibility: visible; animation-duration: 1.8s; animation-delay: 0.8s; animation-name: fadeInUp;"> Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#video-carousel-example3" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#video-carousel-example3" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="ucm-area ucm-bg  up-movie-new" >
+    <div class="ucm-bg-shape up-movie-bg" ></div>
+    <div class="container">
+        <div class="row align-items-end mb-55">
+            <div class="col-lg-6">
+                <div class="section-title text-center text-lg-left">
+                    <!--<span class="sub-title">Our</span>-->
+                    <h2 class="title">Trending Comics  </h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ucm-nav-wrap">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation" *ngFor="let cat of trendinglist; let i = index">
+                            <a *ngIf="i == 0" class="nav-link active" id="{{cat.filter_name}}-tab" data-toggle="tab" href="#{{cat.filter_name}}" role="tab" attr.aria-controls="{{cat.filter_name}}" aria-selected="false">{{cat.filter_name}}</a>
+                            <a *ngIf="i > 0" class="nav-link " id="{{cat.filter_name}}-tab" data-toggle="tab" href="#{{cat.filter_name}}" role="tab" attr.aria-controls="{{cat.filter_name}}" aria-selected="false">{{cat.filter_name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="myTabContent">
+                
+                <div *ngFor="let cat of trendinglist; let i = index" class="tab-pane fade {{i == 0?'show active':''}}" id="{{cat.filter_name}}" role="tabpanel" attr.aria-labelledby="{{cat.filter_name}}-tab">
+                    <div class="ucm-active owl-carousel owl-loaded owl-drag documentation">
+                    <div class="owl-stage-outer " id="home_new_release">
+                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                            <div class="owl-item" *ngFor="let comic of cat.comic_list" style="margin-right: 30px;" >
+                                <div class="movie-item mb-50">
+                                    <div class="movie-poster" >
+                                        <!--<input type="hidden" name="movie_id" id="movie_{{movie.movie_id}}" value="{{movie.movie_id}}">
+                                        <input type="hidden" name="movie_name" id="movie_name_{{movie.movie_id}}" value="{{movie.movie_name}}">
+                                        <input type="hidden" name="movie_hover_image" id="movie_hover_{{movie.movie_id}}" value="{{movie.hover_img}}">
+                                        <input type="hidden" name="description" >-->
+                                        <a routerLink='/{{comic.comic_name}}'><img src="{{comic.image_url}}" alt=""></a>
+                                        <div class="overlay"  style="background-image: url(&quot;{{comic.image_url}}&quot;);background-repeat: no-repeat;background-size: cover;border-radius: 15px;">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="owl-nav">
+                        <button type="button" role="presentation" class="owl-prev">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+                        <button type="button" role="presentation" class="owl-next">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
+                    <div class="owl-dots disabled"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ucm-area new_series-bg  up-movie-new" >
+    <div class="ucm-bg-shape up-movie-bg" ></div>
+    <div class="container">
+        <div class="row align-items-end mb-55">
+            <div class="col-lg-6">
+                <div class="section-title text-center text-lg-left">
+                    <!--<span class="sub-title">Our</span>-->
+                    <h2 class="title" style="padding-top: 8%;">New Comics  </h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ucm-nav-wrap">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation" *ngFor="let cat of newserieslist; let i = index">
+                            <a *ngIf="i == 0" class="nav-link active" id="{{cat.filter_name}}ns-tab" data-toggle="tab" href="#{{cat.filter_name}}ns" role="tab" attr.aria-controls="{{cat.filter_name}}ns" aria-selected="false">{{cat.filter_name}}</a>
+                            <a *ngIf="i > 0" class="nav-link " id="{{cat.filter_name}}ns-tab" data-toggle="tab" href="#{{cat.filter_name}}ns" role="tab" attr.aria-controls="{{cat.filter_name}}ns" aria-selected="false">{{cat.filter_name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="myTabContent">
+                
+                <div *ngFor="let cat of newserieslist; let i = index" class="tab-pane fade {{i == 0?'show active':''}}" id="{{cat.filter_name}}ns" role="tabpanel" attr.aria-labelledby="{{cat.filter_name}}ns-tab">
+                    <div class="ucm-active owl-carousel owl-loaded owl-drag documentation">
+                    <div class="owl-stage-outer " id="home_new_release">
+                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                            <div class="owl-item" *ngFor="let comic of cat.comic_list" style="margin-right: 30px;" >
+                                <div class="movie-item mb-50">
+                                    <div class="movie-poster" >
+                                        <!--<input type="hidden" name="movie_id" id="movie_{{movie.movie_id}}" value="{{movie.movie_id}}">
+                                        <input type="hidden" name="movie_name" id="movie_name_{{movie.movie_id}}" value="{{movie.movie_name}}">
+                                        <input type="hidden" name="movie_hover_image" id="movie_hover_{{movie.movie_id}}" value="{{movie.hover_img}}">
+                                        <input type="hidden" name="description" >-->
+                                        <a routerLink='/{{comic.comic_name}}'><img src="{{comic.image_url}}" alt=""></a>
+                                        <div class="overlay"  style="background-image: url(&quot;{{comic.image_url}}&quot;);background-repeat: no-repeat;background-size: cover;border-radius: 15px;">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="owl-nav">
+                        <button type="button" role="presentation" class="owl-prev">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+                        <button type="button" role="presentation" class="owl-next">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
+                    <div class="owl-dots disabled"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ucm-area up-movie-bg" style="padding: 4%;">
+    <div class="ucm-bg-shape up-movie-bg" ></div>
+    <div class="container parallex_banner_bg">
+        <p>hi </p>
+    </div>
+</section>    
